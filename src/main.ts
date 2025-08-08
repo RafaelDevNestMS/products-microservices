@@ -26,6 +26,6 @@ async function main() {
   );
 
   await app.listen();
-  logger.log(`Microservice is running on port ${envs.port}`);
+  logger.log(`Product Microservice is running on port ${envs.port}`);
 }
 main();
