@@ -40,4 +40,7 @@ export class CategoryController {
   remove(@Payload('id',ParseIntPipe) id: number) {
     return this.categoryService.remove(id);
   }
+
+
+
 }

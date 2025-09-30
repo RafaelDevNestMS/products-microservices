@@ -38,4 +38,14 @@ export class ProductsController {
   remove(@Payload('id', ParseIntPipe) id: number) {
     return this.productsService.remove(id);
   }
+
+  //------ Find Products by Category ------//
+  @MessagePattern({ cmd: 'find_products_by_category' })
+  findByCategory(@Payload() payload: { categoryId: number } & PaginationDto) {
+    const { categoryId, ...paginationDto } = payload;
+    return this.productsService.findByCategory(categoryId, paginationDto);
+  }
+
+  
+
 }

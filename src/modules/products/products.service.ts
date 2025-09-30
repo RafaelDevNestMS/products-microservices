@@ -85,4 +85,27 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
       data: { available: false },
     });
   }
+
+  async findByCategory(categoryId: number, paginationDto: PaginationDto) {
+    const category = await this.category.findUnique({
+      where: { id: categoryId },
+    });
+    if (!category) {
+      throw new RpcException({
+        message: `Category with id ${categoryId} not found`,
+        status: HttpStatus.BAD_REQUEST,
+      });
+    }
+
+    const { page = 1, limit = 10 } = paginationDto;
+ 
+    return this.product.findMany({
+      where: {
+        categoryId,
+        available: true,
+      },
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+  }
 }
